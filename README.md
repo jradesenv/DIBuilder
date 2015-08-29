@@ -17,6 +17,10 @@ Run the project inside example folder to see it working.
 
 ## Usage:
 
+Install plugin with npm:
+
+	npm install dibuilder --save
+
 in your server.js file, require dibuilder module:
 
 ```js
