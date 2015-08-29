@@ -10,18 +10,9 @@ module.exports = function() {
     var debugError = function(msg){
         console.log('Error: ' + msg);
     };
-
-    function repeat(pattern, count) {
-        if (count < 1) return '';
-        var result = '';
-        while (count > 1) {
-            if (count & 1) result += pattern;
-            count >>= 1, pattern += pattern;
-        }
-        return result + pattern;
-    }
-
+    
     //definition
+    
     var builder = {};
     builder.build = build;
     builder.loadModules = loadModules;
@@ -30,6 +21,7 @@ module.exports = function() {
     return builder;
     
     //implementation
+    
     var _instances = {};
     var _modules = {};
     function build(callback){
@@ -190,6 +182,16 @@ module.exports = function() {
                 throw new Error('could not resolve dependencies for ' + moduleName);
             }
         }
+    }
+    
+    function repeat(pattern, count) {
+        if (count < 1) return '';
+        var result = '';
+        while (count > 1) {
+            if (count & 1) result += pattern;
+            count >>= 1, pattern += pattern;
+        }
+        return result + pattern;
     }
     
     function _getParameterNames(func){
