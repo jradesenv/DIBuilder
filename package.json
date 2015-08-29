@@ -1,6 +1,6 @@
 {
   "name": "dibuilder",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Module to easilly inject dependencies in your nodeJS api",
   "main": "index.js",
   "scripts": {
