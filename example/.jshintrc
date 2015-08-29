@@ -1,0 +1,7 @@
+{
+    "globals": {
+        "module": false,
+        "require": false,
+        "console": false
+    }
+}
