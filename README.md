@@ -13,6 +13,8 @@ Set the DEBUG env var to see debug info.
 	In windows cmd:
 		set DEBUG=DIBuilder
 
+Run the project inside example folder to see it working.
+
 ## Usage:
 
 in your server.js file, require dibuilder module:
@@ -53,7 +55,7 @@ Make your modules receive a dibuilder instance and use it to add that module:
 	};
 ```
 
-You can add modules directly by adding their functions as well in server.js:
+If instead, you want to add any modules manually in server.js, just use the addModule passing your function
 
 ```js
  dibuilder.addModule(itemResource);
