@@ -21,7 +21,7 @@ in your server.js file, require dibuilder module:
 	var dibuilder = require('dibuilder');
 ```
 
-Add the instances that your modules can depend on, like routes and mongoose:
+Add the instances that your modules can depend on, like router and mongoose:
 
 ```js
 	dibuilder.addInstance('router', router);
@@ -53,7 +53,14 @@ Make your modules receive a dibuilder instance and use it to add that module:
 	};
 ```
 
-And call the build function to inject the dependencies, passing a success callback where you can set the route, connect to your database, start the server etc..
+You can add modules directly by adding their functions as well in server.js:
+
+```js
+ dibuilder.addModule(itemResource);
+```
+
+And finally, call the build function to inject the dependencies.
+You can pass a success callback, where you could set the route, connect to your database, start the server etc..
 
 ```js
 dibuilder.build(function(){
