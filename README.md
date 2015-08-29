@@ -4,9 +4,14 @@
 
 With this module, you need only to make your classes receive the dependencies as parameters and let the DIBuilder build it all.
 
+You don't even need to require all your modules in the server.js.
+Just config the folders where you want it to search for modules, and let DIBuiler do it for you.
+
 DIBuilder will warn you about errors like circular dependencies, error in constructor and dependence on modules that returns nothing, providing valuable information to discover where's the error in your code.
 
 Set the DEBUG env var to see debug info.
+	In windows cmd:
+		set DEBUG=DIBuilder
 
 ## Usage:
 
@@ -48,7 +53,7 @@ Make your modules receive a dibuilder instance and use it to add that module:
 	};
 ```
 
-And call the build function to inject the dependencies, passing a success callback where you can set the route, connect your database, start the server etc..
+And call the build function to inject the dependencies, passing a success callback where you can set the route, connect to your database, start the server etc..
 
 ```js
 dibuilder.build(function(){
