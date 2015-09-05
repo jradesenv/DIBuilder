@@ -21,7 +21,7 @@ Set the DEBUG env var to see debug info.
 
 Run the project inside example folder to see it working.
 
-## Usage:
+## Getting started:
 
 Install plugin with npm:
 
