@@ -5,7 +5,7 @@ module.exports = function() {
     var debug = debugFactory('DIBuilder');
     var debugModule = function(msg){
         currentStack = currentStack || [];
-        debug(repeat('>', currentStack.length * 3) + msg);
+        debug(_repeat('>', currentStack.length * 3) + msg);
     };
     var debugError = function(msg){
         console.log('Error: ' + msg);
@@ -147,15 +147,21 @@ module.exports = function() {
                 for(var i = 0, len = dependencies.length; i < len; i++){
                     var dependencyName = dependencies[i];
                     var dependencyInstance = _instances[dependencyName];
-                    if(typeof dependencyInstance === 'undefined'){
+                    if(typeof dependencyInstance === 'undefined'){ //instance not already exists?
                         var dependencyModule = _modules[dependencyName];
-                        if(typeof dependencyModule === "function"){
+                        if(typeof dependencyModule === "function"){ //module exists??
                             debugModule('building dependency module')
                             dependencyInstance = _injectDependenciesSingleModuleAndReturnInstance(dependencyName);
                         }
 
-                        if(typeof dependencyInstance === 'undefined'){
-                            throw new Error(dependencyName + ' not found or returning undefined!');
+                        if(typeof dependencyInstance === 'undefined'){ //couldn't create instance?
+                            dependencyInstance = _getDependencyByRequire(dependencyName);
+                            if(typeof dependencyInstance === 'undefined'){ //couldn't require it?
+                                throw new Error(dependencyName + ' not found or returning undefined!');
+                            } else {
+                                debugModule(dependencyName + ' found. Type: ' + typeof dependencyInstance);
+                                dependenciesInstances.push(dependencyInstance);
+                            }
                         } else {
                             debugModule(dependencyName + ' found. Type: ' + typeof dependencyInstance);
                             dependenciesInstances.push(dependencyInstance);
@@ -184,7 +190,7 @@ module.exports = function() {
         }
     }
     
-    function repeat(pattern, count) {
+    function _repeat(pattern, count) {
         if (count < 1) return '';
         var result = '';
         while (count > 1) {
@@ -199,5 +205,26 @@ module.exports = function() {
           .replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg,'')
           .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1]
           .split(/,/);   
+    }
+    
+    function _getDependencyByRequire(dependencyName){
+        try {
+            debugModule("trying to require " + dependencyName);
+            var normalizedName = _normalizeRequireName(dependencyName);
+            debugModule("normalized name: " + normalizedName);
+            var _module = require(normalizedName);
+            return _module;
+        }
+        catch (ex) {
+            if (ex instanceof Error && ex.code === "MODULE_NOT_FOUND")
+                console.log("can't find module.");
+            else
+                debugError(ex.message);
+        }
+    }
+    
+    function _normalizeRequireName(text){
+        //replace uppercase letters with hyppens
+        return text.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
     }
 }();
