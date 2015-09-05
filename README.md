@@ -7,6 +7,12 @@ With this module, you need only to make your classes receive the dependencies as
 You don't even need to require all your modules in the server.js.
 Just config the folders where you want it to search for modules, and let DIBuiler do it for you.
 
+You can add instances you already have too in server.js, like routes or mongoose.
+
+If any of your modules depends on any module from node or node_modules and you don't require it in your server.js, don't worry, the plugin will require them for you when some module depends on it. 
+
+Just use the module name as dependency name, replacing any hyphen with the next letter uppercase. (ex.: if the module is aws-sdk you should depend on awsSdk).
+
 DIBuilder will warn you about errors like circular dependencies, error in constructor and dependence on modules that returns nothing, providing valuable information to discover where's the error in your code.
 
 Set the DEBUG env var to see debug info.
@@ -27,7 +33,7 @@ in your server.js file, require dibuilder module:
 	var dibuilder = require('dibuilder');
 ```
 
-Add the instances that your modules can depend on, like router and mongoose:
+Add the instances you already have in server.js and that your modules can depend on, like router and mongoose:
 
 ```js
 	dibuilder.addInstance('router', router);
