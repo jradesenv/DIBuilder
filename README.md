@@ -54,7 +54,7 @@ Make your modules receive a dibuilder instance and use it to add that module:
 		//add this module
 	    dibuilder.addModule(itemResource);
 	    
-	    function itemResource (router, itemService) { //plugin will inject router and itemService into it
+	    function itemResource (router, itemService, fs) { //plugin will inject router, itemService and fs into it
 	        // definition
 	        router.get('/item', listResource);
 
