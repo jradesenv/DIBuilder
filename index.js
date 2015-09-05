@@ -157,17 +157,17 @@ module.exports = function() {
                         if(typeof dependencyInstance === 'undefined'){ //couldn't create instance?
                             dependencyInstance = _getDependencyByRequire(dependencyName);
                             if(typeof dependencyInstance === 'undefined'){ //couldn't require it?
-                                throw new Error(dependencyName + ' not found or returning undefined!');
+                                throw new Error('dependency module [' + dependencyName + '] not found or returning undefined!');
                             } else {
-                                debugModule(dependencyName + ' found. Type: ' + typeof dependencyInstance);
+                                debugModule('module [' + dependencyName + '] required successfully. Type: ' + typeof dependencyInstance);
                                 dependenciesInstances.push(dependencyInstance);
                             }
                         } else {
-                            debugModule(dependencyName + ' found. Type: ' + typeof dependencyInstance);
+                            debugModule('instance of [' + dependencyName + '] found. Type: ' + typeof dependencyInstance);
                             dependenciesInstances.push(dependencyInstance);
                         }
                     } else {
-                        debugModule(dependencyName + ' found. Type: ' + typeof dependencyInstance);
+                        debugModule('instance of [' + dependencyName + '] found. Type: ' + typeof dependencyInstance);
                         dependenciesInstances.push(dependencyInstance);
                     }
                 }
