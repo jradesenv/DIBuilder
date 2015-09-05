@@ -211,15 +211,15 @@ module.exports = function() {
         try {
             debugModule("trying to require " + dependencyName);
             var normalizedName = _normalizeRequireName(dependencyName);
-            debugModule("normalized name: " + normalizedName);
+            if(normalizedName !== dependencyName) debugModule("normalized name: " + normalizedName);
             var _module = require(normalizedName);
             return _module;
         }
         catch (ex) {
             if (ex instanceof Error && ex.code === "MODULE_NOT_FOUND")
-                console.log("can't find module.");
+                debugError("module not found!");
             else
-                debugError(ex.message);
+                debugError("error while trying to require module: " + ex.message);
         }
     }
     
