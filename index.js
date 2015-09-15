@@ -175,7 +175,7 @@ module.exports = function() {
             if(!hasDependencies || dependenciesInstances.length === dependencies.length){
                 var indexInStack = currentStack.indexOf(moduleName);
                 try{
-                    var _newInstance = _module.apply(this, dependenciesInstances);
+                    var _newInstance = _module.apply(_module, dependenciesInstances);
                 }catch(ex){
                     throw new Error('error inside module "' + moduleName + '" constructor: ' + ex.message);
                 }
