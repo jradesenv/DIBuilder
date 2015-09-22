@@ -53,8 +53,10 @@ module.exports = function() {
                     loadModules(f);
                 }
             } else {
-                debug('loading module ' + path);
-                require(path)(builder);
+                if(path.indexOf('.js')){
+                    debug('loading module ' + path);
+                    require(path)(builder);
+                }
             }
         }catch(ex){
             debugError(ex.message);   
