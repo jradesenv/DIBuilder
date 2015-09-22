@@ -53,7 +53,7 @@ module.exports = function() {
                     loadModules(f);
                 }
             } else {
-                if(path.indexOf('.js')){
+                if(path.indexOf('.js') > -1){
                     debug('loading module ' + path);
                     require(path)(builder);
                 }
