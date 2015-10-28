@@ -18,6 +18,7 @@ module.exports = function() {
     builder.loadModules = loadModules;
     builder.addModule = addModule;
     builder.addInstance = addInstance;
+    builder.getInstance = getInstance;
     return builder;
     
     //implementation
@@ -60,6 +61,22 @@ module.exports = function() {
             }
         }catch(ex){
             debugError(ex.message);   
+        }
+    }
+    
+    function getInstance(name){
+        try{
+            _instances = _instances || {};
+            //validations        
+            var instance = _instances[name];
+            if(typeof _instances[name] !== "undefined")
+            {
+                return instance;
+            } else {
+                debugError("getInstance: instance of " + name + ' not found.');  
+            }
+        }catch(ex){
+            debugError(ex.message);  
         }
     }
     
