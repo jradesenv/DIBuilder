@@ -143,6 +143,7 @@ module.exports = function () {
         var name = func.name ? func.name : '[anonymous]';
         debugModule('injecting dependencies on function ' + name);
         var dependencies = _getParameterNames(func);
+
         debugModule('function dependencies: ' + dependencies.join());
         var dependenciesInstances = getAllDependencies(dependencies);
         if (dependenciesInstances.length === dependencies.length) {
@@ -243,10 +244,15 @@ module.exports = function () {
     }
 
     function _getParameterNames(func) {
-        return func.toString()
-            .replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg, '')
-            .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1]
-            .split(/,/);
+        var parameterNames = func.toString()
+                                .replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg, '')
+                                .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1]
+                                .split(/,/);
+        if (parameterNames.length == 1 && parameterNames[0].length == 0) {
+            return [];
+        }else{
+            return parameterNames;
+        }
     }
 
     function _getDependencyByRequire(dependencyName) {
